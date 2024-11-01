@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/v1/2024-30-10-create_role.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-insert-value-roles.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-create_user.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-create_user_role.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-create_project.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-create_task.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-create_record.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-insert_value_users.yml
+  - include:
+      file: /db/changelog/v1/2024-30-10-insert_value_user_roles.yml

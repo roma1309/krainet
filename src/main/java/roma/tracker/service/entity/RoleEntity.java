@@ -1,7 +1,8 @@
-package roma.petProject.socialApp.entity;
+package roma.tracker.service.entity;
 
 import jakarta.persistence.*;
-import roma.petProject.socialApp.entity.enums.RoleEnum;
+import roma.tracker.service.entity.enums.RoleEnum;
+
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
+    @Column(name = "name")
     private RoleEnum roleEnum;
 
     @ManyToMany

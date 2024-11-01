@@ -1,35 +1,35 @@
-package roma.petProject.socialApp.entity;
+package roma.tracker.service.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private UUID id;
-
-    private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(unique = true)
     private String email;
     private String password;
-
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userEntity")
+    private List<TaskEntity> tasksEntity = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -40,7 +40,7 @@ public class UserEntity implements UserDetails {
                     name = "role_id", referencedColumnName = "id"
             )
     )
-    private List<RoleEntity> roleEntityList;
+    private List<RoleEntity> roleEntityList = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -58,24 +58,40 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return getId().toString();
+        return email;
     }
 
-    public UUID getId() {
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -106,21 +122,6 @@ public class UserEntity implements UserDetails {
         this.lastName = lastName;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public List<RoleEntity> getRoleEntityList() {
         return roleEntityList;
@@ -130,5 +131,19 @@ public class UserEntity implements UserDetails {
         this.roleEntityList = roleEntityList;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
 
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public List<TaskEntity> getTasksEntity() {
+        return tasksEntity;
+    }
+
+    public void setTasksEntity(List<TaskEntity> tasksEntity) {
+        this.tasksEntity = tasksEntity;
+    }
 }

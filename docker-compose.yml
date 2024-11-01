@@ -1,0 +1,20 @@
+services:
+  db_pg:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 13092001
+    ports:
+      - 5432
+  app:
+    restart: always
+    build: .
+    ports:
+      - "8080"
+    depends_on:
+       - db_pg
+    environment:
+      SPRING_DATASOURCE_URL: 'dbc:postgresql://db_pg:5432/tracker'
+      JAVA_OPTS: 'Xmx512m'

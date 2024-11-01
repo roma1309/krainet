@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: "5"
+      author: Hushchyn
+      changes:
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: department
+                  type: varchar(255)
+              - column:
+                  name: is_completed
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: project_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: project_id
+                    references: projects(id)
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: user_id
+                    references: users(id)

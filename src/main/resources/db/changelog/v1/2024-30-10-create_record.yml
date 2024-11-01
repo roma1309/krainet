@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: "6"
+      author: Hushchyn
+      changes:
+        - createTable:
+            tableName: records
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: task_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+                    foreignKeyName: task_id
+                    references: tasks(id)
+              - column:
+                  name: start_date_task
+                  type: timestamp
+              - column:
+                  name: deadline_task
+                  type: timestamp
+              - column:
+                  name: date_to_complete
+                  type: timestamp
+

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: "8"
+      author: Hushchyn
+      changes:
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1

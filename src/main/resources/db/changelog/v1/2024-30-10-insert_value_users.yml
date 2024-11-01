@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: "7"
+      author: Hushchyn
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: ivan@mail.com
+              - column:
+                  name: password
+                  value: $2a$10$gAzVmk.5l2qf/3ACJnH69e1g8GgwJ1JpK03gg65jQzxgSb/svToMm
+              - column:
+                  name: first_name
+                  value: Ivan
+              - column:
+                  name: last_name
+                  value: Drozdov
+              - column:
+                  name: is_active
+                  value: true
+#        - insert:
+#            tableName: roles
+#            columns:
+#              - column:
+#                  name: id
+#                  value: 2
+#              - column:
+#                  name: name
+#                  value: USER
